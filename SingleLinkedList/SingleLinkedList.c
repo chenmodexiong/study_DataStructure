@@ -100,6 +100,91 @@ void SLLPopFront(SLinkedList** pphead)
 	first = NULL;
 }
 
+SLinkedList* SLLFind(SLinkedList* plist, SLLDateType x)
+{
+	assert(plist);
+
+	SLinkedList* cur = plist;
+	while (cur)
+	{
+		while (cur->date != x)
+		{
+			cur = cur->next;
+		}
+
+		return cur;
+	}
+	return NULL;
+}
+
+
+void SLLInsertAfter(SLinkedList* pos, SLLDateType x)
+{
+	assert(pos);
+	assert(pos->next);
+	
+	SLinkedList* newnode = BuyNewNode(x);
+	newnode->next = pos->next;
+	pos->next = newnode;
+	
+}
+
+void SLLPopAfter(SLinkedList* pos)
+{
+	assert(pos);
+	SLinkedList* del = pos->next;
+	pos->next = pos->next->next;
+	free(del);
+	del = NULL;
+}
+
+
+void SLLInsertFront(SLinkedList** pphead, SLinkedList* pos, SLLDateType x)
+{
+	assert(pphead);
+	if (pos == *pphead)
+	{
+		SLLPushFront(pphead,x);
+	}
+	else
+	{
+		SLinkedList* cur = *pphead;
+		while (cur->next!=pos)
+		{
+			cur = cur->next;
+		}
+		SLinkedList* newnode = BuyNewNode(x);
+		newnode->next = cur->next;
+		cur->next = newnode;
+	}
+}
+
+void SLLPopCurrent(SLinkedList** pphead, SLinkedList* pos)
+{
+	assert(pphead);
+	assert(pos);
+	assert(*pphead);
+
+	if (pos == *pphead)
+	{
+		SLLPopFront(pphead);
+	}
+	else
+	{
+		SLinkedList* cur = *pphead;
+		while (cur->next != pos)
+		{
+			cur = cur->next;
+		}
+		SLinkedList* del = cur->next;
+		cur->next = cur->next->next;
+		free(del);
+		del = NULL;
+	}
+
+}
+
+
 
 
 

@@ -65,9 +65,75 @@ void VoidTest4()
 
 }
 
+void VoidTest5()
+{
+	SLinkedList* plist = NULL;
+	SLLPushFront(&plist, 1);
+	SLLPushFront(&plist, 2);
+	SLLPushFront(&plist, 3);
+	SLLPushFront(&plist, 4);
+	SLLPrint(plist);
+	
+	SLinkedList* pos=SLLFind(plist, 2);
+	printf("%p\n", pos);
+	//将2的位置改为20
+	pos->date = 20;
+	SLLPrint(plist);
+}
+
+void VoidTest6()
+{
+	SLinkedList* plist = NULL;
+	SLLPushFront(&plist, 1);
+	SLLPushFront(&plist, 2);
+	SLLPushFront(&plist, 3);
+	SLLPushFront(&plist, 4);
+	SLLPrint(plist);
+	SLLInsertAfter(plist, 50);
+	SLLPrint(plist);
+	SLLPopAfter(plist);
+	SLLPopAfter(plist);
+	SLLPrint(plist);
+}
+
+void VoidTest7()
+{
+	SLinkedList* plist = NULL;
+	SLLPushFront(&plist, 1);
+	SLLPushFront(&plist, 2);
+	SLLPushFront(&plist, 3);
+	SLLPushFront(&plist, 4);
+	SLLPrint(plist);
+	SLLInsertFront(&plist, plist, 50);
+	SLLPrint(plist);
+
+	SLinkedList* pos = SLLFind(plist,3);
+	SLLInsertFront(&plist, pos, 520);
+	SLLPrint(plist);
+
+}
+
+void VoidTest8()
+{
+	SLinkedList* plist = NULL;
+	SLLPushFront(&plist, 1);
+	SLLPushFront(&plist, 2);
+	SLLPushFront(&plist, 3);
+	SLLPushFront(&plist, 4);
+	SLLPrint(plist);
+
+	SLinkedList* pos = SLLFind(plist, 3);
+	SLLInsertFront(&plist, pos, 520);
+	SLLPrint(plist);
+
+	SLLPopCurrent(&plist, pos);
+	SLLPrint(plist);
+}
+
+
 int main()
 {
-	VoidTest4();
+	VoidTest8();
 	//VoidTest3();
 	//VoidTest2();
 	//VoidTest1();
@@ -86,6 +152,8 @@ int main()
 //	test1(&a);
 //	return 0;
 //}
+
+
 
 
 

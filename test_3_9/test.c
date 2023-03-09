@@ -42,7 +42,6 @@
 //如果 pos 是 - 1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。
 //不允许修改 链表。
 
-
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -65,6 +64,15 @@ struct ListNode* detectCycle(struct ListNode* head)
             struct ListNode* commen = fast;
             struct ListNode* start = head;
             //相遇点和起始点一起走，正好在入口处相遇
+            // while(commen && start)
+            // {
+            //     if (commen == start)
+            //     {
+            //         return commen;
+            //     }
+            //     commen = commen->next;
+            //     start = start->next;
+            // }
             while (commen != start)
             {
                 commen = commen->next;
@@ -74,13 +82,56 @@ struct ListNode* detectCycle(struct ListNode* head)
         }
     }
     return NULL;
-
-
 }
 
 
 
+#include <stdio.h>
+#include <stdlib.h>
 
+struct ListNode 
+{
+    int val;
+    struct ListNode *next;
+};
 
+struct ListNode* detectCycle(struct ListNode* head)
+{
+    struct ListNode* fast = head;
+    struct ListNode* slow = head;
+    while (fast && fast->next)
+    {
+        //找相遇点
+        slow = slow->next;
+        fast = fast->next->next;
 
+        if (fast == slow)
+        {
+            struct ListNode* commen = fast;
+            struct ListNode* start = head;
+            //相遇点和起始点一起走，正好在入口处相遇
+            while (commen && start)
+            {
+                if (commen == start)
+                {
+                    return commen;
+                }
+                commen = commen->next;
+                start = start->next;
+            }
+        }
+    }
+    return NULL;
+}
 
+int main()
+{
+    struct ListNode* head = (struct ListNode*)malloc(sizeof(struct ListNode));
+    struct ListNode* cur = (struct ListNode*)malloc(sizeof(struct ListNode));
+    head->val = 1;
+    head->next = cur;
+    cur->val = 2;
+    cur->next = head;
+    struct ListNode* ret = detectCycle(head);
+    return 0;
+}

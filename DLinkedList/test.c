@@ -13,6 +13,14 @@ int main()
 	DLLPushBack(plist, 5);
 	DLLPrint(plist);
 
+	ListNode* pos=DLLFind(plist, 5);
+	DLLErase(pos);
+	DLLPrint(plist);
+
+	//ListNode* pos = DLLFind(plist, 10);
+	//DLLErase(pos);
+	//DLLPrint(plist);
+
 	//DLLPuchFront(plist,50);
 	//DLLPrint(plist);
 	//DLLPopBack(plist);

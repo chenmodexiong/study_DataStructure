@@ -38,9 +38,17 @@ void DLLPopBack(ListNode* head);
 //双向链表头删
 void DLLPopFront(ListNode* head);
 
+//双向链表查找
+ListNode* DLLFind(ListNode* head, DateType x);
+
 //pos位置插入
 void DLLInsert(ListNode* pos, DateType x);
 
+//pos位置删除
+void DLLErase(ListNode* pos);
+
+//销毁
+void DLLDestroy(ListNode* head);
 
 
 

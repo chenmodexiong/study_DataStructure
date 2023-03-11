@@ -124,9 +124,46 @@ void DLLInsert(ListNode* pos, DateType x)
 
 }
 
+void DLLErase(ListNode* pos)
+{
+	assert(pos);
+
+	ListNode* prev = pos->prev;
+	ListNode* next = pos->next;
+	prev->next = next;
+	next->prev = prev;
+
+	free(pos);
+	pos = NULL;
+}
 
 
+ListNode* DLLFind(ListNode* head, DateType x)
+{
+	assert(head);
+	ListNode* cur = head->next;
+	while (cur != head)
+	{
+		if (cur->date == x)
+			return cur;
+		cur = cur->next;
+	}
+	return NULL;
+}
 
+void DLLDestroy(ListNode* head)
+{
+	assert(head);
+	ListNode* cur = head->next;
+	while (cur != head)
+	{
+		ListNode* next = cur->next;
+		free(cur);
+		cur = next;
+	}
+
+	free(head);
+}
 
 
 

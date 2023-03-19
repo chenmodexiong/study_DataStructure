@@ -12,7 +12,7 @@ typedef int DateType;
 typedef struct Stack
 {
 	DateType* arr;//用数组来实现栈
-	DateType top;//栈顶
+	size_t top;//栈顶
 	size_t capacity;//容量
 }stack;
 

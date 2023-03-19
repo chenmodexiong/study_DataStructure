@@ -17,21 +17,12 @@ void StackInit(stack* ps)
 	ps->top = 0;//栈顶的下一个下标
 }
 
-void StackDestroy(stack* ps)
-{
-	assert(ps);
-	free(ps->arr);
-	ps->arr = NULL;
-	ps->capacity = 0;
-	ps->top = 0;
-}
-
 
 void StackPush(stack* ps, DateType x)
 {
 	assert(ps);
 	//检查容量是否需要扩容
-	if (ps->capacity == (ps->top+1))
+	if (ps->capacity == ps->top)
 	{
 		DateType* tmp = (DateType*)realloc(ps->arr, sizeof(DateType) * ps->capacity * 2);
 		if (tmp == NULL)
@@ -44,6 +35,16 @@ void StackPush(stack* ps, DateType x)
 	}
 
 	ps->arr[ps->top++] = x;
+}
+
+
+void StackDestroy(stack* ps)
+{
+	assert(ps);
+	free(ps->arr);
+	ps->arr = NULL;
+	ps->capacity = 0;
+	ps->top = 0;
 }
 
 void StackPop(stack* ps)

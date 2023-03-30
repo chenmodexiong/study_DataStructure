@@ -1,0 +1,13 @@
+#pragma once
+
+#include <stdio.h>
+#include <stdlib.h>
+
+//¥Ú”°
+void PrintArray(int* arr, int num);
+//≤Â»Î≈≈–Ú£®…˝–Ú£©
+void InsertSort(int* arr, int num);
+
+void ShellSort(int* arr, int num);
+
+

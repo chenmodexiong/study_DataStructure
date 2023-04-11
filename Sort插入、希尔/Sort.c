@@ -36,35 +36,31 @@ void InsertSort(int* arr, int num)
 }
 
 //Ï£¶ûÅÅÐò
-void ShellSort(int* arr,int num)
+void ShellSort(int* arr, int num)
 {
 	int gap = num;
 	while (gap > 1)
 	{
 		gap /= 2;
-		for (int j = 0; j < gap; j++)
+		for (int i = 0; i < num - gap; i++)
 		{
-			//Ò»×éÔ¤ÅÅÐò	
-			for (int i = gap; i < num; i += gap)
+			int end = i;
+			int tmp = arr[i + gap];
+			while (end >= 0)
 			{
-				int end = i - gap;
-				int tmp = arr[i];
-				while (end >= 0)
+				if (tmp < arr[end])
 				{
-					if (tmp < arr[end])
-					{
-						arr[end + gap] = arr[end];
-						end -= gap;
-					}
-					else
-					{
-						break;
-					}
+					arr[end + gap] = arr[end];
+					end -= gap;
 				}
-				arr[end + gap] = tmp;
+				else
+				{
+					break;
+				}
 			}
+			arr[end + gap] = tmp;
 		}
-	}	
+	}
 }
 
 

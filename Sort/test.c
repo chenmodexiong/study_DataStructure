@@ -25,11 +25,27 @@ void TestShellSort()
 	PrintArray(a, sizeof(a) / sizeof(a[0]));
 }
 
+void TestSelectSort()
+{
+	int a[] = { 10,9,8,7,6,5,6,5,3,2,0,-5,-6,-10,1 };
+	PrintArray(a, sizeof(a) / sizeof(a[0]));
+	SelectSort(a, sizeof(a) / sizeof(a[0]));
+	PrintArray(a, sizeof(a) / sizeof(a[0]));
+}
+
+void TestHeapSort()
+{
+	int a[] = { 10,9,8,7,6,5,6,5,3,2,0,-5,-6,-10,1 };
+	PrintArray(a, sizeof(a) / sizeof(a[0]));
+	HeapSort(a, sizeof(a) / sizeof(a[0]));
+	PrintArray(a, sizeof(a) / sizeof(a[0]));
+}
+
 // 测试排序的性能对比
 void TestOP()
 {
 	srand(time(0));
-	const int N = 100000;
+	const int N = 10000;
 	int* a1 = (int*)malloc(sizeof(int) * N);
 	int* a2 = (int*)malloc(sizeof(int) * N);
 	int* a3 = (int*)malloc(sizeof(int) * N);
@@ -57,11 +73,11 @@ void TestOP()
 	int end2 = clock();
 
 	int begin3 = clock();
-	//SelectSort(a3, N);
+	SelectSort(a3, N);
 	int end3 = clock();
 
 	int begin4 = clock();
-	//HeapSort(a4, N);
+	HeapSort(a4, N);
 	int end4 = clock();
 
 	int begin5 = clock();
@@ -74,8 +90,8 @@ void TestOP()
 
 	printf("InsertSort:%d\n", end1 - begin1);
 	printf("ShellSort:%d\n", end2 - begin2);
-	//printf("SelectSort:%d\n", end3 - begin3);
-	//printf("HeapSort:%d\n", end4 - begin4);
+	printf("SelectSort:%d\n", end3 - begin3);
+	printf("HeapSort:%d\n", end4 - begin4);
 	//printf("QuickSort:%d\n", end5 - begin5);
 	//printf("MergeSort:%d\n", end6 - begin6);
 
@@ -88,12 +104,12 @@ void TestOP()
 }
 
 
-
-
 int main()
 {
 	//TestInsertSort();
 	//TestShellSort();
+	//TestSelectSort();
+	TestHeapSort();
 	TestOP();
 	return 0;
 }

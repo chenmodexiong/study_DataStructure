@@ -168,3 +168,85 @@ void HeapSort(int* arr, int size)
 	}
 }
 
+void BubbleSort(int* a, int n)
+{
+	for (int j = 0; j < n-1; j++)
+	{
+		for (int i = 1; i < n - j; i++)
+		{
+			if (a[i - 1] > a[i])
+				Swap(&a[i - 1], &a[i]);
+		}
+	}
+}
+
+int GetMidi(int* a, int left, int right)
+{
+	int mid = (left + right) / 2;
+	if ((a[left] - a[mid]) * (a[mid] - a[right]) > 0)
+		return mid;
+	else if ((a[mid] - a[left]) * (a[left] - a[right]) > 0)
+		return left;
+	else
+		return right;
+}
+int PartSort1(int* a, int left, int right)
+{
+	int midi = GetMidi(a, left, right);
+	Swap(&a[midi], &a[left]);
+	int keyi = left;
+	int begin = left, end = right;
+	while (begin < end)
+	{
+		//注意左边选keyi右边先走，保证最后的位置正确
+		//以及要注意等于号，否则会死循环
+		while(begin < end && a[end] >= a[keyi])
+			end--;
+		while (begin < end && a[begin] <= a[keyi])
+			begin++;
+		Swap(&a[begin], &a[end]);
+	}
+	Swap(&a[keyi], &a[end]);
+	keyi = end;
+	return keyi;
+}
+
+int PartSort2(int* a, int left, int right)
+{
+	int midi = GetMidi(a, left, right);
+	Swap(&a[left], &a[midi]);
+	int key = a[left];
+	int hole= left;
+	int begin = left, end = right;
+	while (begin < end)
+	{
+		while (begin<end && a[end] >= key)
+			end--;
+		a[hole] = a[end];
+		hole = end;
+		while (begin < end && a[begin] <= key)
+			begin++;
+		a[hole] = a[begin];
+		hole = begin;
+	}	
+	a[hole] = key;
+	return hole;
+}
+
+void QuickSort(int* a, int left,int right)
+{
+	if (left >= right)
+		return;
+	//int keyi = PartSort1(a, left, right);
+	int keyi = PartSort2(a, left, right);
+	QuickSort(a, left, keyi - 1);
+	QuickSort(a, keyi + 1, right);
+}
+
+
+
+
+
+
+
+

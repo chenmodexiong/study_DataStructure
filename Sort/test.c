@@ -41,6 +41,23 @@ void TestHeapSort()
 	PrintArray(a, sizeof(a) / sizeof(a[0]));
 }
 
+void TestBubbleSort()
+{
+	int a[] = { 10,9,8,7,6,5,6,5,3,2,0,-5,-6,-10,1 };
+	PrintArray(a, sizeof(a) / sizeof(a[0]));
+	BubbleSort(a, sizeof(a) / sizeof(a[0]));
+	PrintArray(a, sizeof(a) / sizeof(a[0]));
+}
+
+void TestQuickSort()
+{
+	int a[] = { 10,9,8,7,6,5,6,5,3,2,0,-5,-6,-10,1 };
+	PrintArray(a, sizeof(a) / sizeof(a[0]));
+	QuickSort(a, 0, sizeof(a) / sizeof(a[0]) - 1);
+	PrintArray(a, sizeof(a) / sizeof(a[0]));
+}
+
+
 // 测试排序的性能对比
 void TestOP()
 {
@@ -109,8 +126,10 @@ int main()
 	//TestInsertSort();
 	//TestShellSort();
 	//TestSelectSort();
-	TestHeapSort();
-	TestOP();
+	//TestHeapSort();
+	//TestBubbleSort();
+	TestQuickSort();
+	//TestOP();
 	return 0;
 }
 

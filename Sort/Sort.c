@@ -1,4 +1,5 @@
 #include "Sort.h"
+#include "Stack.h"
 
 void InsertSort(int* arr, int num)
 {
@@ -233,20 +234,146 @@ int PartSort2(int* a, int left, int right)
 	return hole;
 }
 
-void QuickSort(int* a, int left,int right)
+int PartSort3(int* a, int left, int right)
 {
-	if (left >= right)
-		return;
-	//int keyi = PartSort1(a, left, right);
-	int keyi = PartSort2(a, left, right);
-	QuickSort(a, left, keyi - 1);
-	QuickSort(a, keyi + 1, right);
+	int midi = GetMidi(a, left, right);
+	Swap(&a[left], &a[midi]);
+	int keyi = left;
+	int prev = left, cur = left + 1;
+	while (cur <= right)
+	{
+		while (a[cur] < a[keyi] && ++prev != cur)
+			Swap(&a[cur], &a[prev]);
+		++cur;
+	}
+	Swap(&a[keyi], &a[prev]);
+	keyi = prev;
+	return keyi;
 }
 
 
+//void QuickSort(int* a, int left,int right)
+//{
+//	if (left >= right)
+//		return;
+//	//int keyi = PartSort1(a, left, right);
+//	//int keyi = PartSort2(a, left, right);
+//	int keyi = PartSort3(a, left, right);
+//	QuickSort(a, left, keyi - 1);
+//	QuickSort(a, keyi + 1, right);
+//}
+
+void QuickSort(int* a, int left, int right)
+{
+	if (left >= right)
+		return;
+	if (right - left + 1 > 10)
+	{
+		int keyi = PartSort3(a, left, right);
+		QuickSort(a, left, keyi - 1);
+		QuickSort(a, keyi + 1, right);
+	}
+	else
+		InsertSort(a + left, right - left + 1);
+}
+
+void QuickSortNonR(int* a, int left, int right)
+{
+	stack st;
+	StackInit(&st);
+	StackPush(&st, right);
+	StackPush(&st, left);
+	while (!StackEmpty(&st))
+	{
+		int begin = StackTop(&st);
+		StackPop(&st);
+		int end = StackTop(&st);
+		StackPop(&st);
+		int keyi = PartSort3(a, begin, end);
+		//[begin,keyi-1] keyi [keyi+1,end]
+		if (keyi + 1 < end)
+		{
+			StackPush(&st, end);
+			StackPush(&st, keyi + 1);
+		}
+		if (begin < keyi - 1)
+		{
+			StackPush(&st, keyi - 1);
+			StackPush(&st, begin);
+		}
+	}	
+	StackDestroy(&st);
+}
+
+void _MergeSort(int* a, int begin, int end, int* tmp)
+{
+	if (begin >= end)
+		return;
+	int mid = (begin + end) / 2;
+	_MergeSort(a, begin, mid, tmp);
+	_MergeSort(a, mid + 1, end, tmp);
+	//归并
+	//[begin,mid][mid+1,end]
+	int begin1 = begin, end1 = mid;
+	int begin2 = mid + 1, end2 = end;
+	int i = begin;//注意开始位置，不能是0
+	while (begin1 <= end1 && begin2 <= end2)
+	{
+		if (a[begin1] < a[begin2])
+			tmp[i++] = a[begin1++];
+		else
+			tmp[i++] = a[begin2++];
+	}
+	while (begin1 <= end1)
+		tmp[i++] = a[begin1++];
+	while (begin2 <= end2)
+		tmp[i++] = a[begin2++];
+	memcpy(a + begin, tmp + begin, sizeof(int) * (end - begin + 1));
+}
+void MergeSort(int* a, int n)
+{
+	int* tmp = (int*)malloc(sizeof(int) * n);
+	if (tmp == NULL)
+	{
+		perror("malloc fail\n");
+		return;
+	}
+	_MergeSort(a, 0, n - 1, tmp);
+	free(tmp);
+}
 
 
-
-
+void CountSort(int* a, int n)
+{
+	//找最大值，最小值
+	int max = a[0], min = a[0];
+	for (int i = 0; i < n; i++)
+	{
+		if (a[i] < min)
+			min = a[i];
+		if (a[i] > max)
+			max = a[i];
+	}
+	//开辟数组
+	int range = max - min + 1;
+	int* countA = (int*)malloc(sizeof(int) * range);
+	if (countA == NULL)
+	{
+		perror("malloc fail\n");
+		return;
+	}
+	memset(countA, 0, sizeof(int) * range);
+	//计数
+	for (int i = 0; i < n; i++)
+		countA[a[i] - min]++;
+	//排序
+	int j = 0;
+	for (int i = 0; i < range; i++)
+	{
+		while (countA[i]--)
+			a[j++] = i + min;
+	}
+	free(countA);
+}
 
 

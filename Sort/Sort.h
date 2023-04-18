@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 //直接插入排序
@@ -16,4 +17,16 @@ void HeapSort(int* arr, int size);
 void BubbleSort(int* a, int n);
 //快速排序
 void QuickSort(int* a, int left, int right);
+//快排非递归
+void QuickSortNonR(int* a, int left, int right);
+//归并排序
+void MergeSort(int* a, int n);
+//计数排序
+void CountSort(int* a, int n);
+
+
+
+
+
+
 

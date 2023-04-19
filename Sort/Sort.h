@@ -21,8 +21,11 @@ void QuickSort(int* a, int left, int right);
 void QuickSortNonR(int* a, int left, int right);
 //归并排序
 void MergeSort(int* a, int n);
+//归并非递归
+void MergeSortNonR(int* a, int n);
 //计数排序
 void CountSort(int* a, int n);
+
 
 
 

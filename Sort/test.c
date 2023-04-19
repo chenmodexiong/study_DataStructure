@@ -65,11 +65,19 @@ void TestQuickSortNonR()
 	PrintArray(a, sizeof(a) / sizeof(a[0]));
 }
 
-void TestMergeSortNonR()
+void TestMergeSort()
 {
 	int a[] = { 10,9,8,7,6,5,6,5,3,2,0,-5,-6,-10,1 };
 	PrintArray(a, sizeof(a) / sizeof(a[0]));
 	MergeSort(a,sizeof(a) / sizeof(a[0]));
+	PrintArray(a, sizeof(a) / sizeof(a[0]));
+}
+
+void TestMergeSortNonR()
+{
+	int a[] = { 10,9,8,7,6,5,6,5,3,2,0,-5,-6,-10,1 };
+	PrintArray(a, sizeof(a) / sizeof(a[0]));
+	MergeSortNonR(a, sizeof(a) / sizeof(a[0]));
 	PrintArray(a, sizeof(a) / sizeof(a[0]));
 }
 
@@ -85,7 +93,7 @@ void TestCountSort()
 void TestOP()
 {
 	srand(time(0));
-	const int N = 10000;
+	const int N = 100000;
 	int* a1 = (int*)malloc(sizeof(int) * N);
 	int* a2 = (int*)malloc(sizeof(int) * N);
 	int* a3 = (int*)malloc(sizeof(int) * N);
@@ -127,6 +135,7 @@ void TestOP()
 
 	int begin6 = clock();
 	MergeSort(a6, N);
+	//MergeSortNonR(a6, N);
 	int end6 = clock();
 
 	printf("InsertSort:%d\n", end1 - begin1);
@@ -147,16 +156,17 @@ void TestOP()
 
 int main()
 {
-	//TestInsertSort();
-	//TestShellSort();
-	//TestSelectSort();
-	//TestHeapSort();
-	//TestBubbleSort();
-	//TestQuickSort();
-	//TestQuickSortNonR();
-	//TestMergeSortNonR();
+	TestInsertSort();
+	TestShellSort();
+	TestSelectSort();
+	TestHeapSort();
+	TestBubbleSort();
+	TestQuickSort();
+	TestQuickSortNonR();
+	TestMergeSort();
+	TestMergeSortNonR();
 	TestCountSort();
-	//TestOP();
+	TestOP();
 	return 0;
 }
 

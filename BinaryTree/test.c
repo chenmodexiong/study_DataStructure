@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <assert.h>
 
+
+
 typedef int DateType;
 
 typedef struct BTNode
